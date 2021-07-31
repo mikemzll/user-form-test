@@ -1,0 +1,102 @@
+<div class="container">
+  <mat-card class="card">
+    <mat-card-title>Клієнт</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="clientForm">
+        <div class="row">
+          <mat-form-field class="action">
+            <mat-label> Прізвище </mat-label>
+            <input matInput
+              formControlName="lastName" required>
+            <mat-error>
+              це поле є обов'язковим
+            </mat-error>
+          </mat-form-field>
+        
+          <mat-form-field class="action">
+            <mat-label> Імя </mat-label>
+            <input matInput
+              formControlName="firstName" required>
+            <mat-error>
+              це поле є обов'язковим
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <mat-form-field class="action">
+          <mat-label> По батькові </mat-label>
+          <input matInput 
+            formControlName="patronymic">
+          <mat-error>
+            це поле є обов'язковим
+          </mat-error>
+        </mat-form-field>
+      
+        <mat-form-field class="action">
+          <mat-label> Дата народження </mat-label>
+          <input matInput [matDatepicker]="picker"
+            formControlName="birthDate" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      
+        <mat-form-field class="action">
+          <mat-label> Номер телефону </mat-label>
+          <input matInput
+            type="tel"
+            formControlName="phoneNumber" required>
+            <mat-error *ngIf="clientForm.controls['phoneNumber'].errors?.required">
+              це поле є обов'язковим
+            </mat-error>
+            <mat-error *ngIf="clientForm.controls['phoneNumber'].errors?.pattern">
+              номер повинен містити 11 цифр
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="action">
+          <mat-label> Стать </mat-label>
+          <mat-select
+            formControlName="gender">
+            <mat-option *ngFor="let gender of genderOptionList" [value]="gender.type">{{ gender.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="row">
+          <mat-form-field class="action">
+            <mat-label> Група клієнтів </mat-label>
+            <mat-select
+              formControlName="clientGroup"
+              required>
+              <mat-option *ngFor="let group of clientGroupOptionList" [value]="group.type">{{ group.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+          <mat-form-field class="action">
+            <mat-label> Координатор </mat-label>
+            <mat-select
+              formControlName="coordinator">
+              <mat-option value="Іванов">Іванов</mat-option>
+              <mat-option value="Захаров">Захаров</mat-option>
+              <mat-option value="Чернишова">Чернишова</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      
+        <mat-checkbox class="action" formControlName="noSMS">
+          Не надсилати СМС
+        </mat-checkbox>
+      
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button 
+        mat-raised-button 
+        color="primary"
+        [disabled]="clientForm.invalid || clientForm.pristine"
+        (click)="navigateToNextPage()"> 
+        Далі 
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

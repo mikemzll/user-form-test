@@ -1,0 +1,82 @@
+<div class="container">
+  <mat-card class="card">
+    <mat-card-title> Адреса </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="addressForm">
+        <div class="row">
+          <mat-form-field class="action">
+            <mat-label> Індекс </mat-label>
+            <input matInput
+              formControlName="index">
+            <mat-error>
+              це поле є обов'язковим
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="action">
+            <mat-label> Країна </mat-label>
+            <mat-select
+              required
+              formControlName="country">
+              <mat-option 
+                *ngFor="let country of countryOptionList"
+                [value]="country.type">
+                {{ country.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>
+              це поле є обов'язковим
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <div class="row">
+          <mat-form-field class="action">
+            <mat-label> Область </mat-label>
+            <input matInput 
+              formControlName="region">
+          </mat-form-field>
+
+          <mat-form-field class="action">
+            <mat-label> Місто </mat-label>
+            <mat-select
+              required
+              formControlName="city">
+              <mat-option
+                *ngFor="let city of cityOptionList"
+                [value]="city.type">
+                {{ city.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>
+              це поле є обов'язковим
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <mat-form-field class="action">
+          <mat-label> Вулиця </mat-label>
+          <input matInput
+            formControlName="street">
+        </mat-form-field>
+      
+        <mat-form-field class="action">
+          <mat-label> Будинок</mat-label>
+          <input matInput
+            formControlName="house">
+        </mat-form-field>
+      
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button 
+        mat-raised-button 
+        color="primary"
+        [disabled]="addressForm.invalid || addressForm.pristine"
+        (click)="navigateToNextPage()"> 
+        Далі 
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

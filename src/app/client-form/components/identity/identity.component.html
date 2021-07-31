@@ -1,0 +1,82 @@
+<div class="container">
+  <mat-card class="card">
+    <mat-card-title> Підтвердження особистості </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="identityForm">
+        <div class="row">
+          <mat-form-field class="action">
+            <mat-label> Тип документу </mat-label>
+            <mat-select
+              required
+              formControlName="documentType">
+              <mat-option 
+                *ngFor="let document of documentOptionList"
+                [value]="document.type">
+                {{ document.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>
+              це поле є обов'язковим
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <div class="row">
+          <mat-form-field class="action">
+            <mat-label> Серія </mat-label>
+            <input matInput 
+              formControlName="series">
+          </mat-form-field>
+        
+          <mat-form-field class="action">
+            <mat-label> Номер </mat-label>
+            <input 
+              matInput 
+              formControlName="serialNumber"
+              type="number"
+              required>
+            <mat-error>
+              це поле є обов'язковим
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <mat-form-field class="action">
+          <mat-label> Ким видано </mat-label>
+          <input matInput 
+            formControlName="authority">
+        </mat-form-field>
+
+        <mat-form-field class="action">
+          <mat-label> Дата видачі </mat-label>
+          <input 
+            matInput 
+            [matDatepicker]="picker"
+            formControlName="dateOfIssue" 
+            required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>
+            це поле є обов'язковим
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="action">
+          <mat-label> Файл (завантажити)</mat-label>
+          <ngx-mat-file-input formControlName="file"></ngx-mat-file-input>
+          <mat-icon matSuffix>attach_file</mat-icon>
+        </mat-form-field>      
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button 
+        mat-raised-button 
+        color="primary"
+        [disabled]="identityForm.invalid || identityForm.pristine"
+        (click)="navigateToNextPage()"> 
+        Далі 
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>
